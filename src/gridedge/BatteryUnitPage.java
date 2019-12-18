@@ -14,6 +14,7 @@ import gridedge.Mailer;
  */
 public class BatteryUnitPage extends javax.swing.JFrame {
 
+    String email = "";
     int BatNumber = -1;
     int[] StateList = new int[5];
     Mailer mail = new Mailer();
@@ -444,7 +445,7 @@ public class BatteryUnitPage extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
-        new HomePage(this.StateList).setVisible(true);
+        new HomePage(this.StateList, this.email).setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -471,7 +472,11 @@ public class BatteryUnitPage extends javax.swing.JFrame {
         java.util.Date date=new java.util.Date();  
         
         if (this.jRadioButton2.isSelected()) {
-           this.mail.send("from", "password", "to", "Battery Unit Operation Change", this.jLabel12.getText() + " started charging as of " + date + ".");
+           try {
+               this.mail.sendMail(this.email, "Battery Unit Operation Change", this.jLabel12.getText() + " started charging as of " + date + ".");
+           } catch(Exception e) {
+               System.out.println(e.getMessage());
+           }
        }
     }//GEN-LAST:event_jButton7ActionPerformed
 
@@ -483,9 +488,14 @@ public class BatteryUnitPage extends javax.swing.JFrame {
         
         java.util.Date date=new java.util.Date();  
         
+        
         if (this.jRadioButton1.isSelected()) {
-           this.mail.send("from", "password", "to", "Battery Unit Operation Change", this.jLabel12.getText() + " has been shutdown since " + date + ". Action Required.");
-       }
+            try {
+                this.mail.sendMail(this.email, "Battery Unit Operation Change", this.jLabel12.getText() + " has been shutdown since " + date + ". Action Required.");
+            } catch(Exception e) {
+                System.out.println(e.getMessage());
+            }
+            }
     }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
@@ -564,7 +574,7 @@ public class BatteryUnitPage extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 
-    public BatteryUnitPage(String x, BatteryUnit bat, int[] StateList, int BatteryNumber) {
+    public BatteryUnitPage(String x, BatteryUnit bat, int[] StateList, int BatteryNumber, String email) {
         initComponents();
         float[] hold = bat.getData();
         this.jLabel12.setText("Battery " + x.substring(1));
@@ -578,7 +588,7 @@ public class BatteryUnitPage extends javax.swing.JFrame {
         this.jLabel20.setText(String.valueOf(hold[7]));
         this.StateList = StateList;
         this.BatNumber = BatteryNumber;
-
+        this.email = email;
         
         if (this.StateList[this.BatNumber] == 1) {
             this.jPanel7.setBackground(Color.red);

@@ -16,7 +16,7 @@ import java.util.Date;
  */
 public class BatterySystemPage extends javax.swing.JFrame {
 
-    
+    String email = "";
     int[] StateList = new int[5];
     Mailer mail = new Mailer();
     /**
@@ -442,7 +442,7 @@ public class BatterySystemPage extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
-        new HomePage(this.StateList).setVisible(true);
+        new HomePage(this.StateList, this.email).setVisible(true);
         for (int y = 0; y < StateList.length; y++) {
             System.out.println(StateList[y]);
         }
@@ -480,8 +480,12 @@ public class BatterySystemPage extends javax.swing.JFrame {
        java.util.Date date=new java.util.Date();  
 
        if (this.jRadioButton1.isSelected()) {
-           this.mail.send("from", "password", "to", "Battery System Operation Change", "The Battery System was shutdown at " + date + ". Action Required.");
-       }
+           try {
+                this.mail.sendMail(this.email, "Battery System Operation Change", "The Battery System was shutdown at " + date + ". Action Required.");
+            } catch(Exception e) {
+                System.out.println(e.getMessage());
+            }
+           }
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
@@ -497,8 +501,12 @@ public class BatterySystemPage extends javax.swing.JFrame {
        java.util.Date date=new java.util.Date();  
        
        if (this.jRadioButton2.isSelected()) {
-           this.mail.send("from", "password", "to", "Battery System Operation Change", "The Battery System is charging as of " + date + ".");
-       }
+           try {
+                this.mail.sendMail(this.email, "Battery System Operation Change", "The Battery System is charging as of " + date + ".");
+           } catch(Exception e) {
+                System.out.println(e.getMessage());
+            }
+           }
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
@@ -579,7 +587,7 @@ public class BatterySystemPage extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButton2;
     // End of variables declaration//GEN-END:variables
 
-    public BatterySystemPage(String x, BatterySystem bat, int[] StateList) {
+    public BatterySystemPage(String x, BatterySystem bat, int[] StateList, String email) {
         initComponents();
         this.jLabel12.setText(x);
         float[] hold = bat.getData();
@@ -593,6 +601,7 @@ public class BatterySystemPage extends javax.swing.JFrame {
         this.jLabel19.setText(String.valueOf(hold[6]));
         this.jLabel20.setText(String.valueOf(hold[7]));
         this.StateList = StateList;
+        this.email = email;
        
         if (this.StateList[1] == 2 || this.StateList[2] == 2 ||
             this.StateList[3] == 2 || this.StateList[4] == 2 && this.StateList[1] != 0

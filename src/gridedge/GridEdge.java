@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package gridedge;
+import gridedge.HomePage;
 
 /**
  *
@@ -16,6 +17,7 @@ public class GridEdge {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        new HomePage().setVisible(true);
     }
     
 }

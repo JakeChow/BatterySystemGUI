@@ -38,6 +38,11 @@ class Mailer{
            System.out.println("message sent successfully");    
           } catch (MessagingException e) {throw new RuntimeException(e);}    
              
-    }  
+    }
+    
+    //EDIT THE SemderEmail AND Password TO SET SENDER EMAIL AND PASSWORD AUTHENTICATION
+    public static void sendMail(String to,String sub,String msg) {
+        Mailer.send("SenderEmail", "Password", to, sub, msg);
+    }
 }  
 
