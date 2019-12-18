@@ -10,6 +10,8 @@ package gridedge;
  * @author jakechoward
  */
 public class BatteryUnit {
+    
+    //The variables to represent values given via CEI Battery Units
     private float MaxChargeCurrent;
     private float MaxDischargeCurrent;
     private float TotalEnergyDeliveredSinceCharge;
@@ -18,9 +20,11 @@ public class BatteryUnit {
     private float TotalEnergyDelivery;
     private float TotalOperatingTime;
     private float TotalCycles;
+   
     //state 0 = online, 1 = offline, 2 = charging
     private int OperatingState;
     
+    //Empty Constructor for BatteryUnit Class. Defaults all values to 0.
     public BatteryUnit() {
         this.MaxChargeCurrent = 0;
         this.MaxDischargeCurrent = 0;
@@ -33,6 +37,7 @@ public class BatteryUnit {
         this.OperatingState = 0;
     }
     
+    //A constructor that takes in initial values for each data point.
     public BatteryUnit(float MaxChargeCurrent, float MaxDischargeCurrent, float TotalEnergyDeliveredSinceCharge,
             float InternalImpedence, float ChargeDelivered, float TotalEnergyDelivery, float TotalOperatingTime,
             float TotalCycles, int state) {
@@ -47,6 +52,7 @@ public class BatteryUnit {
         this.OperatingState = state;
     }
     
+    //A method to return an array w all the data of a BatteryUnit
     public float[] getData() {
         float[] hold = new float[8];
         hold[0] = this.MaxChargeCurrent;
@@ -60,10 +66,13 @@ public class BatteryUnit {
         return hold;
     }
     
+    //Returns the operational state of the BatteryUnit
     public int getState() {
         return this.OperatingState;
     }
         
+    //Sets the operational state of BatteryUnit with int parameter.
+    //  0:Online, 1:Offline, 2:Charging
     public void setState(int x) {
         this.OperatingState = x;
     }

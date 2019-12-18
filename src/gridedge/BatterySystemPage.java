@@ -6,6 +6,10 @@
 package gridedge;
 import gridedge.BatteryUnit;
 import java.awt.Color;
+import gridedge.Mailer;
+import java.text.SimpleDateFormat;  
+import java.util.Date;  
+
 /**
  *
  * @author jakechoward
@@ -14,7 +18,7 @@ public class BatterySystemPage extends javax.swing.JFrame {
 
     
     int[] StateList = new int[5];
-    
+    Mailer mail = new Mailer();
     /**
      * Creates new form BatterySystemPage
      */
@@ -33,7 +37,6 @@ public class BatterySystemPage extends javax.swing.JFrame {
 
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -84,8 +87,6 @@ public class BatterySystemPage extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-
-        jButton3.setText("Notifications");
 
         jPanel1.setBackground(new java.awt.Color(255, 166, 166));
 
@@ -160,7 +161,7 @@ public class BatterySystemPage extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -193,8 +194,7 @@ public class BatterySystemPage extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(jLabel20))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel20)))
         );
 
         jPanel2.setBackground(new java.awt.Color(171, 166, 166));
@@ -255,6 +255,11 @@ public class BatterySystemPage extends javax.swing.JFrame {
         jLabel11.setText("Notification Settings");
 
         jRadioButton1.setText("Notify When System Offline");
+        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton1ActionPerformed(evt);
+            }
+        });
 
         jRadioButton2.setText("Notify When System Charging");
         jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -374,12 +379,9 @@ public class BatterySystemPage extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31))
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -413,18 +415,17 @@ public class BatterySystemPage extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(jButton2))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
+                        .addGap(33, 33, 33)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(14, 14, 14)
+                        .addGap(20, 20, 20)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -442,6 +443,9 @@ public class BatterySystemPage extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.setVisible(false);
         new HomePage(this.StateList).setVisible(true);
+        for (int y = 0; y < StateList.length; y++) {
+            System.out.println(StateList[y]);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -472,6 +476,12 @@ public class BatterySystemPage extends javax.swing.JFrame {
        this.StateList[4] = 1;
        this.jPanel7.setBackground(Color.red);
        this.jLabel22.setText("System Offline");
+       
+       java.util.Date date=new java.util.Date();  
+
+       if (this.jRadioButton1.isSelected()) {
+           this.mail.send("from", "password", "to", "Battery System Operation Change", "The Battery System was shutdown at " + date + ". Action Required.");
+       }
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
@@ -483,7 +493,17 @@ public class BatterySystemPage extends javax.swing.JFrame {
        this.StateList[4] = 2;
        this.jPanel7.setBackground(Color.yellow);
        this.jLabel22.setText("System Charging");
+       
+       java.util.Date date=new java.util.Date();  
+       
+       if (this.jRadioButton2.isSelected()) {
+           this.mail.send("from", "password", "to", "Battery System Operation Change", "The Battery System is charging as of " + date + ".");
+       }
     }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -523,7 +543,6 @@ public class BatterySystemPage extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
@@ -574,7 +593,24 @@ public class BatterySystemPage extends javax.swing.JFrame {
         this.jLabel19.setText(String.valueOf(hold[6]));
         this.jLabel20.setText(String.valueOf(hold[7]));
         this.StateList = StateList;
+       
+        if (this.StateList[1] == 2 || this.StateList[2] == 2 ||
+            this.StateList[3] == 2 || this.StateList[4] == 2 && this.StateList[1] != 0
+                && this.StateList[2] != 0 && this.StateList[3] != 0 && this.StateList[4] != 0)   {
+            this.jPanel7.setBackground(Color.yellow);
+            this.jLabel22.setText("System Charging");
+        }
+        
+        else if (this.StateList[1] == 1 && this.StateList[2] == 1 && 
+            this.StateList[3] == 1 && this.StateList[4] == 1 && this.StateList[1] != 0
+                && this.StateList[2] != 0 && this.StateList[3] != 0 && this.StateList[4] != 0) {
+            this.jPanel7.setBackground(Color.red);
+            this.jLabel22.setText("System Offline");
+        }
+        
+
     }
 }
+
 
 
